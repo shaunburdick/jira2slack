@@ -20,9 +20,9 @@ Below are the conversions that are made:
 | Headers | `h1. Heading` | `\n *Heading*\n` | Yes | Slack doesn't support headers so library converts headers to bolded text on it's own line |
 | Bold   | `*bold*` | `*bold*` | Sometimes | [[1]](notes) |
 | Italic | `_italic_` | `_italic_` | Sometimes | [[1]](notes) |
-| Unordered List | <br>`* Bulleted List`<br>`** Indented more`<br>`* Indented less` | <br>`• Bulleted List`<br>`  • Indented more`<br>`• Indented less` | No | |
+| Unordered List | <br>`* Bulleted List`<br>`** Indented more`<br>`* Indented less` | <br>`• Bulleted List`<br>`..• Indented more`<br>`• Indented less` | No |[[2]](notes) |
 | Unordered Dash List | `- Bulleted Dash List`<br>`- Bulleted Dash List`<br>`- Bulleted Dash List` | `• Bulleted Dash List`<br>`• Bulleted Dash List`<br>`• Bulleted Dash List` | Yes | Ambigious result from Bulleted list so reversal results in use of astericks |
-|Ordered List | `# Numbered List`<br>`## Indented more`<br>`## Indented more`<br>`### Indented morer`<br>`### Indented morer`<br>`### Indented morer`<br>`## Indented more`<br>`# Indented less` | `1. Numbered List`<br>`  1. Indented more`<br>`  2. Indented more`<br>`    1. Indented morer`<br>`    2. Indented morer`<br>`    3. Indented morer`<br>`  3. Indented more`<br>`2. Indented less` | No | |
+|Ordered List | `# Numbered List`<br>`## Indented more`<br>`## Indented more`<br>`### Indented morer`<br>`### Indented morer`<br>`### Indented morer`<br>`## Indented more`<br>`# Indented less` | `1. Numbered List`<br>`..1. Indented more`<br>`..2. Indented more`<br>`....1. Indented morer`<br>`....2. Indented morer`<br>`....3. Indented morer`<br>`..3. Indented more`<br>`2. Indented less` | No | [[1]](notes) |
 | Monospaced | `{{code}}` | `` `code` `` | No | |
 | Citations | `??citation??` | `-- citation_` | Yes | Slack doesn't have citations, but I can replicate resulting format |
 | Subscript | `~subscript~` | `_subscript` | Yes | Slack doesn't have subscript, but I denote it with a single underscore |
@@ -41,6 +41,7 @@ Below are the conversions that are made:
 
 ### Notes
 1. JIRA supports spaces at the beginning and end of a markdown section (ex `_ foo _`) where Slack does not. To match the formatting, the library moves those spaces outside the formatter (ex `_ foo _` becomes ` _foo_ `). While the result works in both JIRA and Slack, it is technically destructive.
+2. `.` indicate whitespace (` `), not a literal .
 
 ## Acknowledgments
 Special thanks to Kyle Farris for his [JIRA to Markdown library](https://github.com/kylefarris/J2M)
