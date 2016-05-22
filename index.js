@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Convert JIRA markdown to Slack markdown
  *
