@@ -22,7 +22,7 @@ Below are the conversions that are made:
 | Italic | `_italic_` | `_italic_` | Sometimes | [[1]](notes) |
 | Unordered List | <br>`* Bulleted List`<br>`** Indented more`<br>`* Indented less` | <br>`• Bulleted List`<br>`..• Indented more`<br>`• Indented less` | No |[[2]](notes) |
 | Unordered Dash List | `- Bulleted Dash List`<br>`- Bulleted Dash List`<br>`- Bulleted Dash List` | `• Bulleted Dash List`<br>`• Bulleted Dash List`<br>`• Bulleted Dash List` | Yes | Ambigious result from Bulleted list so reversal results in use of astericks |
-|Ordered List | `# Numbered List`<br>`## Indented more`<br>`## Indented more`<br>`### Indented morer`<br>`### Indented morer`<br>`### Indented morer`<br>`## Indented more`<br>`# Indented less` | `1. Numbered List`<br>`..1. Indented more`<br>`..2. Indented more`<br>`....1. Indented morer`<br>`....2. Indented morer`<br>`....3. Indented morer`<br>`..3. Indented more`<br>`2. Indented less` | No | [[1]](notes) |
+|Ordered List | `# Numbered List`<br>`## Indented more`<br>`## Indented more`<br>`### Indented morer`<br>`### Indented morer`<br>`### Indented morer`<br>`## Indented more`<br>`# Indented less` | `1. Numbered List`<br>`..1. Indented more`<br>`..2. Indented more`<br>`....1. Indented morer`<br>`....2. Indented morer`<br>`....3. Indented morer`<br>`..3. Indented more`<br>`2. Indented less` | No | [[1]](notes)[[2]](notes) |
 | Monospaced | `{{code}}` | `` `code` `` | No | |
 | Citations | `??citation??` | `-- citation_` | Yes | Slack doesn't have citations, but I can replicate resulting format |
 | Subscript | `~subscript~` | `_subscript` | Yes | Slack doesn't have subscript, but I denote it with a single underscore |
