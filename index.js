@@ -12,7 +12,7 @@ function toSlack (jiraMD) {
 
   return jiraMD
     // Quotes
-    .replace(/\{(quote)\}/g, '```')
+    .replace(/\{quote\}/g, '```')
 
     // Stolen from: https://github.com/kylefarris/J2M
     // Un-ordered Lists
@@ -50,9 +50,6 @@ function toSlack (jiraMD) {
 
     // Citations
     .replace(/\?\?((?:.[^?]|[^?].)+)\?\?/g, '_-- $1_')
-
-    // Inserts (ignored as unsupported)
-    // .replace(/\+([^+]*)\+/g, '<ins>$1</ins>')
 
     // Superscript
     .replace(/\^([^^]*)\^/g, '^$1')
@@ -94,6 +91,60 @@ function toSlack (jiraMD) {
     .replace(/^[ \t]*\|/gm, '|');
 }
 
+/**
+ * Convert JIRA markdown to Slack markdown
+ *
+ * @param {string} slackMD The Slack markdown
+ * @return {string} The JIRA markdown
+ */
+function toJira (slackMD) {
+  return slackMD
+    // Quotes
+    .replace(/```/g, '{code}')
+
+    // Stolen from: https://github.com/kylefarris/J2M
+    // Un-ordered Lists
+    .replace(/^( *)• /gm, (match, spaces) => `*${Array((spaces.length / 2) + 1).join('*')} `)
+
+    // Ordered lists
+    .replace(/^( *)\d\.\s+/gm, (match, depth) => `#${Array((depth.length / 2) + 1).join('#')} `)
+
+    // Headers 1-6
+    .replace(/^\n?( *)\*([^\*]+)\*\n/g,
+      (match, level, content) => `h${level.length}. ${content}`)
+
+    // Monospaced text
+    .replace(/`([^`]+)`/g, '{{$1}}')
+
+    // Citations
+    .replace(/_-- ([^(_)]+)_/g, '??$1??')
+
+    // Strikethrough
+    .replace(/((\W)~|(^)~)(\S.*?\S)(~(\W)|~($))/gm, '$2-$4-$6')
+
+    // Un-named Links
+    .replace(/<([^|]+)>/g, '[$1]')
+
+    // Named Links
+    .replace(/<(.+)\|(.+?)>/g, '[$2|$1]')
+
+    // Single Paragraph Blockquote
+    .replace(/^> /gm, 'bq. ')
+
+    // panel into table
+    .replace(/\{panel:title=([^}]*)\}\n?([^]*?)\n?\{panel\}/gm, '\n| $1 |\n| --- |\n| $2 |')
+
+    // table header
+    .replace(/^[ \t]*((?:\|\|.*?)+\|\|)[ \t]*$/gm, (match, headers) => {
+      const singleBarred = headers.replace(/\|\|/g, '|');
+      return `\n${singleBarred}\n${singleBarred.replace(/\|[^|]+/g, '| --- ')}`;
+    })
+
+    // remove leading-space of table headers and rows
+    .replace(/^[ \t]*\|/gm, '|');
+}
+
 module.exports = {
-  toSlack
+  toSlack,
+  toJira
 };

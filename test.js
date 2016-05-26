@@ -239,3 +239,150 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
   assert.equal(response, expectedText, 'JIRA Markup should be converted to Slack Markup');
   assert.end();
 });
+
+test('Slack to JIRA: Check Individual Formatting', (assert) => {
+  assert.equal(
+    J2S.toJira('\n *Heading*\n'),
+    'h1. Heading',
+    'Headings'
+  );
+
+  assert.equal(
+    J2S.toJira('• Bulleted List\n  • Indented more\n• Indented less\n\n'),
+    '* Bulleted List\n** Indented more\n* Indented less\n\n',
+    'Unordered List'
+  );
+
+  assert.equal(
+    J2S.toJira(
+      '1. Numbered List\n' +
+      '  1. Indented more\n' +
+      '  2. Indented more\n' +
+      '    1. Indented morer\n' +
+      '    2. Indented morer\n' +
+      '    3. Indented morer\n' +
+      '  3. Indented more\n' +
+      '2. Indented less\n\n'
+    ),
+    '# Numbered List\n' +
+    '## Indented more\n' +
+    '## Indented more\n' +
+    '### Indented morer\n' +
+    '### Indented morer\n' +
+    '### Indented morer\n' +
+    '## Indented more\n' +
+    '# Indented less\n\n',
+    'Ordered List'
+  );
+
+  assert.equal(
+    J2S.toJira('||heading 1||heading 2||\n|col A1|col B1|\n|col A2|col B2|\n\n'),
+    '\n|heading 1|heading 2|\n| --- | --- |\n|col A1|col B1|\n|col A2|col B2|\n\n',
+    'Table'
+  );
+
+  assert.equal(
+    J2S.toJira('Bold: *boldy*\n'),
+    'Bold: *boldy*\n',
+    'Bold'
+  );
+
+  assert.equal(
+    J2S.toJira('Italic: _italicy_\n'),
+    'Italic: _italicy_\n',
+    'Italic'
+  );
+
+  assert.equal(
+    J2S.toJira('Monospace: `$code`\n'),
+    'Monospace: {{$code}}\n',
+    'Monospace'
+  );
+
+  assert.equal(
+    J2S.toJira('Citations: _-- citation_\n'),
+    'Citations: ??citation??\n',
+    'Citations'
+  );
+
+  assert.equal(
+    J2S.toJira('Strikethrough: ~strikethrough~\n'),
+    'Strikethrough: -strikethrough-\n',
+    'Strikethrough'
+  );
+
+  assert.equal(
+    J2S.toJira('Not Strikethrough: i-use-dashes\n'),
+    'Not Strikethrough: i-use-dashes\n',
+    'No strikethrough for dashed words'
+  );
+
+  assert.equal(
+    J2S.toJira('Unnamed Link: <http://someurl.com>\n'),
+    'Unnamed Link: [http://someurl.com]\n',
+    'Unnamed Link'
+  );
+
+  assert.equal(
+    J2S.toJira('Named Link: <http://someurl.com|Someurl>\n'),
+    'Named Link: [Someurl|http://someurl.com]\n',
+    'Named Link'
+  );
+
+  assert.equal(
+    J2S.toJira('Blockquote: \n> This is quoted\n'),
+    'Blockquote: \nbq. This is quoted\n',
+    'Blockquote'
+  );
+
+  assert.end();
+});
+
+test('Slack to JIRA: Check All Formatting', (assert) => {
+  const expectedText = 'h1. Heading\nFoo foo _foo_ foo foo foo\n' +
+    '* Bulleted List\n** Indented more\n* Indented less\n\n' +
+    '# Numbered List\n' +
+    '## Indented more\n' +
+    '## Indented more\n' +
+    '### Indented morer\n' +
+    '### Indented morer\n' +
+    '### Indented morer\n' +
+    '## Indented more\n' +
+    '# Indented less\n\n' +
+    'Bold: *boldy*\n' +
+    'Italic: _italicy_\n' +
+    'Monospace: {{$code}}\n' +
+    'Citations: ??citation??\n' +
+    'Strikethrough: -strikethrough-\n' +
+    'Not Strikethrough: i-use-dashes\n' +
+    'Code: {code}some code{code}\n' +
+    'Unnamed Link: [http://someurl.com]\n' +
+    'Named Link: [Someurl|http://someurl.com]\n' +
+    'Blockquote: \nbq. This is quoted\n';
+
+  const stashFormat = '\n *Heading*\n\nFoo foo _foo_ foo foo foo\n' +
+    '• Bulleted List\n  • Indented more\n• Indented less\n\n' +
+    '1. Numbered List\n' +
+    '  1. Indented more\n' +
+    '  2. Indented more\n' +
+    '    1. Indented morer\n' +
+    '    2. Indented morer\n' +
+    '    3. Indented morer\n' +
+    '  3. Indented more\n' +
+    '2. Indented less\n\n' +
+    'Bold: *boldy*\n' +
+    'Italic: _italicy_\n' +
+    'Monospace: `$code`\n' +
+    'Citations: _-- citation_\n' +
+    'Strikethrough: ~strikethrough~\n' +
+    'Not Strikethrough: i-use-dashes\n' +
+    'Code: ```some code```\n' +
+    'Unnamed Link: <http://someurl.com>\n' +
+    'Named Link: <http://someurl.com|Someurl>\n' +
+    'Blockquote: \n> This is quoted\n';
+
+  const response = J2S.toJira(stashFormat);
+
+  assert.equal(response, expectedText, 'JIRA Markup should be converted to Slack Markup');
+  assert.end();
+});

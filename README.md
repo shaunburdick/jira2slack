@@ -20,7 +20,7 @@ Below are the conversions that are made:
 | Headers | `h1. Heading` | `\n *Heading*\n` | Yes | Slack doesn't support headers so library converts headers to bolded text on it's own line |
 | Bold   | `*bold*` | `*bold*` | Sometimes | [[1]](notes) |
 | Italic | `_italic_` | `_italic_` | Sometimes | [[1]](notes) |
-| Unordered List | <br>`* Bulleted List`<br>`** Indented more`<br>`* Indented less` | <br>`• Bulleted List`<br>`..• Indented more`<br>`• Indented less` | No |[[2]](notes) |
+| Unordered List | <br>`* Bulleted List`<br>`** Indented more`<br>`* Indented less` | <br>`• Bulleted List`<br>`..• Indented more`<br>`• Indented less` | No | [[2]](notes) |
 | Unordered Dash List | `- Bulleted Dash List`<br>`- Bulleted Dash List`<br>`- Bulleted Dash List` | `• Bulleted Dash List`<br>`• Bulleted Dash List`<br>`• Bulleted Dash List` | Yes | Ambigious result from Bulleted list so reversal results in use of astericks |
 |Ordered List | `# Numbered List`<br>`## Indented more`<br>`## Indented more`<br>`### Indented morer`<br>`### Indented morer`<br>`### Indented morer`<br>`## Indented more`<br>`# Indented less` | `1. Numbered List`<br>`..1. Indented more`<br>`..2. Indented more`<br>`....1. Indented morer`<br>`....2. Indented morer`<br>`....3. Indented morer`<br>`..3. Indented more`<br>`2. Indented less` | No | [[1]](notes)[[2]](notes) |
 | Monospaced | `{{code}}` | `` `code` `` | No | |
@@ -33,7 +33,7 @@ Below are the conversions that are made:
 | Pre-formatted Text | `{noformat}pre text{noformat}` | `` ```pre text``` `` | Yes | Slack does't support no format text so the library uses preformmated `` ``` `` instead. This makes it impossible to convert back. |
 | Unnamed Link | `[http://someurl.com]` | `<http://someurl.com>` | No | |
 | Named Link | `Someurl|http://someurl.com]` | `<http://someurl.com|Someurl>` | No | |
-| Blockquote | `bq. This is quoted` | `> This is quoted` | Sometimes | Slack doesn't support multi-line blockquotes (>>>) so thos are ignored |
+| Blockquote | `bq. This is quoted` | `> This is quoted` | Sometimes | Slack doesn't support multi-line blockquotes (>>>) so those are ignored |
 | Color | `{color:white}This is white text{color}` | `This is white text` | Yes | Slack doesn't support colored text so it is removed. |
 | Panel | `{panel:title=foo}Panel Contents{panel}` | Panel: <br>&#124; foo &#124;<br>&#124; --- &#124;<br>&#124; Panel Contents &#124; | Yes | Slack doesn't support panels, so the library attempts to replicate the format. This makes it impossible to convert back. |
 | Table | &#124;&#124;heading 1&#124;&#124;heading 2&#124;&#124;<br>&#124;col A1&#124;col B1&#124;<br>&#124;col A2&#124;col B2&#124; | &#124;heading 1&#124;heading 2&#124;<br>&#124; --- &#124; --- &#124;<br>&#124;col A1&#124;col B1&#124;<br>&#124;col A2&#124;col B2&#124; | No | |
@@ -42,6 +42,22 @@ Below are the conversions that are made:
 ### Notes
 1. JIRA supports spaces at the beginning and end of a markdown section (ex `_ foo _`) where Slack does not. To match the formatting, the library moves those spaces outside the formatter (ex `_ foo _` becomes ` _foo_ `). While the result works in both JIRA and Slack, it is technically destructive.
 2. `.` indicate whitespace (` `), not a literal .
+
+## Slack -> Jira
+| Format | Slack | Jira | Destructive | Notes |
+| ------ | ---- | ----- | ----------- | ----- |
+| Headers | `\n *Heading*\n` | `h1. Heading` | No | |
+| Bold   | `*bold*` | `*bold*` | No |  |
+| Italic | `_italic_` | `_italic_` | No | |
+| Unordered List | <br>`• Bulleted List`<br>`..• Indented more`<br>`• Indented less` | <br>`* Bulleted List`<br>`** Indented more`<br>`* Indented less` | No | [[2]](notes) |
+|Ordered List | `1. Numbered List`<br>`..1. Indented more`<br>`..2. Indented more`<br>`....1. Indented morer`<br>`....2. Indented morer`<br>`....3. Indented morer`<br>`..3. Indented more`<br>`2. Indented less` | `# Numbered List`<br>`## Indented more`<br>`## Indented more`<br>`### Indented morer`<br>`### Indented morer`<br>`### Indented morer`<br>`## Indented more`<br>`# Indented less` | No | |
+| Monospaced | `` `code` `` | `{{code}}` | No | |
+| Citations | `-- citation_` | `??citation??` | No | |
+| Strikethrough | `~strikethrough~` | `-strikethrough-` | No | |
+| Code | `` ```some code``` `` | `{code}some code{code}` | No | |
+| Unnamed Link | `<http://someurl.com>` | `[http://someurl.com]` | No | |
+| Named Link | `<http://someurl.com|Someurl>` | `Someurl|http://someurl.com]` | No | |
+| Blockquote | `> This is quoted` | `bq. This is quoted` | No | |
 
 ## Acknowledgments
 Special thanks to Kyle Farris for his [JIRA to Markdown library](https://github.com/kylefarris/J2M)
