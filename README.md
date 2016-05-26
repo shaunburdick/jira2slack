@@ -50,7 +50,7 @@ Below are the conversions that are made:
 | Bold   | `*bold*` | `*bold*` | No |  |
 | Italic | `_italic_` | `_italic_` | No | |
 | Unordered List | <br>`• Bulleted List`<br>`..• Indented more`<br>`• Indented less` | <br>`* Bulleted List`<br>`** Indented more`<br>`* Indented less` | No | [[2]](notes) |
-|Ordered List | `1. Numbered List`<br>`..1. Indented more`<br>`..2. Indented more`<br>`....1. Indented morer`<br>`....2. Indented morer`<br>`....3. Indented morer`<br>`..3. Indented more`<br>`2. Indented less` | `# Numbered List`<br>`## Indented more`<br>`## Indented more`<br>`### Indented morer`<br>`### Indented morer`<br>`### Indented morer`<br>`## Indented more`<br>`# Indented less` | No | |
+|Ordered List | `1. Numbered List`<br>`..1. Indented more`<br>`..2. Indented more`<br>`....1. Indented morer`<br>`....2. Indented morer`<br>`....3. Indented morer`<br>`..3. Indented more`<br>`2. Indented less` | `# Numbered List`<br>`## Indented more`<br>`## Indented more`<br>`### Indented morer`<br>`### Indented morer`<br>`### Indented morer`<br>`## Indented more`<br>`# Indented less` | No | [[2]](notes) |
 | Monospaced | `` `code` `` | `{{code}}` | No | |
 | Citations | `-- citation_` | `??citation??` | No | |
 | Strikethrough | `~strikethrough~` | `-strikethrough-` | No | |
