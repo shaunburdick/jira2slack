@@ -1,6 +1,14 @@
 language: node_js
 node_js:
-  - "4"
-  - "5"
-  - "6"
+- '4'
+- '5'
+- '6'
 after_success: npm run coverage
+deploy:
+  provider: npm
+  email: npm@shaunburdick.com
+  api_key:
+    secure: NY7SuHGcu0+6ML8ATLTb0VApUH9xdZHtbu8KiuPWSXUAUBAD+o0eV9HVlQXYSUOYlab0ilJNZBMAMZwg1i2hvLkHlvN9lUnJGATjIXTK3TZoxZ92XYmruQ60lm54NUvo/Xq+neYTAPK85hQsfMPBxcFlj4CIr0iNPFUE5YODdQGSme+U0TzMKv73o5dx7Ik2SQgyLyhHqhkqv7XJmaMhpIlEM9S0mRJaY24i7Npx8IU/e8KjSlmEB91y3pYjqE0IZ4UbS0zK5OD5w8HbOfuiqCyx0+dZtxq2flDCDeBmMrFryP9ev+qro2YnesDdGQl5ohq0Va79+M8fF9bG8FWcYEideXEiWuw0irBATKpywOzL9QjLRfemzy4OHCSMMgVgIBqDm2JD4bzVfa6+rDzxgJC5x6yvp2atCMyaOH8Fq+m29xCsLHclWppgCOoABLH3IY/pxNlNMvCEqf71L0RNHQGj6oVbntg4t8ciull3nNJgLF5dLxEJTKrXU6CwDpCAPO6GzS+3Os0ES2pg/Ch3B7ifeI2D8JqxZWzEnj3vHmUukxSql9LYPZiS3RCbntHVteXvYtlNiPmnl7MMXfJc9f+5GnaKwkWjIrI3BEznwzlDRfI7BlqkCWM+jxOGlhHk91aWyvMNNdMaY13U9uMq1S1r6uDf1Iw0Vwms9IOeOZQ=
+  on:
+    tags: true
+    repo: shaunburdick/jira2slack
