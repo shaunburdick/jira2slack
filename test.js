@@ -86,6 +86,13 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
     'Citations'
   );
 
+  const bigCitation = 'wwwwwwwwwwwwwww\n'.repeat(100);
+  assert.equal(
+    J2S.toSlack(`Citations: ??${bigCitation}??\n`),
+    `Citations: _-- ${bigCitation}_\n`,
+    'Huge Citations'
+  );
+
   assert.equal(
     J2S.toSlack('Subscript: ~subscript~\n'),
     'Subscript: _subscript\n',

@@ -49,7 +49,7 @@ function toSlack (jiraMD) {
     .replace(/\{\{([^}]+)\}\}/g, '`$1`')
 
     // Citations
-    .replace(/\?\?((?:.[^?]|[^?].)+)\?\?/g, '_-- $1_')
+    .replace(/\?\?([^\?\?]+)\?\?/g, '_-- $1_')
 
     // Superscript
     .replace(/\^([^^]*)\^/g, '^$1')

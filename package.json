@@ -1,11 +1,11 @@
 {
   "name": "jira2slack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Library to convert between JIRA markup and Slack markup",
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && npm run unit",
-    "unit": "nyc --all node test.js",
+    "unit": "nyc --all node test.js | tap-diff",
     "lint": "semistandard --verbose | snazzy",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coverage-report": "nyc report --reporter=html && open coverage/index.html"
@@ -30,6 +30,7 @@
     "nyc": "^6.4.4",
     "semistandard": "^8.0.0",
     "snazzy": "^4.0.0",
+    "tap-diff": "^0.1.1",
     "tape": "^4.5.1"
   },
   "semistandard": {
