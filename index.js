@@ -70,7 +70,7 @@ function toSlack (jiraMD) {
     .replace(/\[([^|]+)\]/g, '<$1>')
 
     // Named Links
-    .replace(/\[(.+?)\|(.+)\]/g, '<$2|$1>')
+    .replace(/\[([^[\]|]+?)\|([^[\]|]+?)\]/g, '<$2|$1>')
 
     // Single Paragraph Blockquote
     .replace(/^bq\.\s+/gm, '> ')
