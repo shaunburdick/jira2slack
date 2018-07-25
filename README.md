@@ -32,7 +32,7 @@ Below are the conversions that are made:
 | Quotes | `{quote}quoted text{quote}` | `` ```quoted text``` `` | Yes | Slack does't support quoted text so the library uses preformmated `` ``` `` instead. This makes it impossible to convert back. |
 | Pre-formatted Text | `{noformat}pre text{noformat}` | `` ```pre text``` `` | Yes | Slack does't support no format text so the library uses preformmated `` ``` `` instead. This makes it impossible to convert back. |
 | Unnamed Link | `[http://someurl.com]` | `<http://someurl.com>` | No | |
-| Named Link | `Someurl|http://someurl.com]` | `<http://someurl.com|Someurl>` | No | |
+| Named Link | `[Someurl\|http://someurl.com]` | `<http://someurl.com\|Someurl>` | No | |
 | Blockquote | `bq. This is quoted` | `> This is quoted` | Sometimes | Slack doesn't support multi-line blockquotes (>>>) so those are ignored |
 | Color | `{color:white}This is white text{color}` | `This is white text` | Yes | Slack doesn't support colored text so it is removed. |
 | Panel | `{panel:title=foo}Panel Contents{panel}` | Panel: <br>&#124; foo &#124;<br>&#124; --- &#124;<br>&#124; Panel Contents &#124; | Yes | Slack doesn't support panels, so the library attempts to replicate the format. This makes it impossible to convert back. |
@@ -56,7 +56,7 @@ Below are the conversions that are made:
 | Strikethrough | `~strikethrough~` | `-strikethrough-` | No | |
 | Code | `` ```some code``` `` | `{code}some code{code}` | No | |
 | Unnamed Link | `<http://someurl.com>` | `[http://someurl.com]` | No | |
-| Named Link | `<http://someurl.com|Someurl>` | `Someurl|http://someurl.com]` | No | |
+| Named Link | `<http://someurl.com\|Someurl>` | `[Someurl\|http://someurl.com]` | No | |
 | Blockquote | `> This is quoted` | `bq. This is quoted` | No | |
 
 ## Acknowledgments
