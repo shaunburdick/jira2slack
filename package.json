@@ -26,12 +26,12 @@
   },
   "homepage": "https://github.com/shaunburdick/jira2slack#readme",
   "devDependencies": {
-    "coveralls": "^2.13.1",
-    "nyc": "^6.4.4",
-    "semistandard": "^8.0.0",
-    "snazzy": "^4.0.0",
+    "coveralls": "^3.0.2",
+    "nyc": "^13.1.0",
+    "semistandard": "^12.0.1",
+    "snazzy": "^8.0.0",
     "tap-diff": "^0.1.1",
-    "tape": "^4.7.0"
+    "tape": "^4.9.1"
   },
   "semistandard": {
     "ignore": [

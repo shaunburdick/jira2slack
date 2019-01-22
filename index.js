@@ -17,7 +17,7 @@ function toSlack (jiraMD) {
     // Stolen from: https://github.com/kylefarris/J2M
     // Un-ordered Lists
     .replace(/^[ \t]*(\*+)\s+/gm, (match, stars) => `${Array(stars.length).join('  ')}• `)
-    .replace(/^\-\s+/gm, () => '• ')
+    .replace(/^-\s+/gm, () => '• ')
 
     // Ordered lists
     .replace(/^[ \t]*(#+)\s+/gm, (match, nums) => {
@@ -49,7 +49,7 @@ function toSlack (jiraMD) {
     .replace(/\{\{([^}]+)\}\}/g, '`$1`')
 
     // Citations
-    .replace(/\?\?([^\?\?]+)\?\?/g, '_-- $1_')
+    .replace(/\?\?([^??]+)\?\?/g, '_-- $1_')
 
     // Superscript
     .replace(/\^([^^]*)\^/g, '^$1')
@@ -58,7 +58,7 @@ function toSlack (jiraMD) {
     .replace(/~([^~]*)~/g, '_$1')
 
     // Strikethrough
-    .replace(/((\W)\-|(^)\-)( *)(\S.*?\S)( *)(\-(\W)|\-($))/gm, '$2$3$4~$5~$6$8')
+    .replace(/((\W)-|(^)-)( *)(\S.*?\S)( *)(-(\W)|-($))/gm, '$2$3$4~$5~$6$8')
 
     // Code Block
     .replace(/\{code(:([a-z]+))?\}([^]*)\{code\}/gm, '```$2$3```')
@@ -110,7 +110,7 @@ function toJira (slackMD) {
     .replace(/^( *)\d\.\s+/gm, (match, depth) => `#${Array((depth.length / 2) + 1).join('#')} `)
 
     // Headers 1-6
-    .replace(/^\n?( *)\*([^\*]+)\*\n/g,
+    .replace(/^\n?( *)\*([^*]+)\*\n/g,
       (match, level, content) => `h${level.length}. ${content}`)
 
     // Monospaced text
