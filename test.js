@@ -160,6 +160,12 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
   );
 
   assert.equal(
+    J2S.toSlack('[] checkbox 1\n[] checkbox 2\n[this is just a comment]\nvar foo = ["1","2","3"]; var=[1,2,3]'),
+    '[] checkbox 1\n[] checkbox 2\n[this is just a comment]\nvar foo = ["1","2","3"]; var=[1,2,3]',
+    'Non-URL links'
+  );
+
+  assert.equal(
     J2S.toSlack('Blockquote: \nbq. This is quoted\n'),
     'Blockquote: \n> This is quoted\n',
     'Blockquote'

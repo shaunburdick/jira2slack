@@ -67,7 +67,7 @@ function toSlack (jiraMD) {
     .replace(/{noformat}/g, '```')
 
     // Un-named Links
-    .replace(/\[([^|]+)\]/g, '<$1>')
+    .replace(/\[([^|{}\\^~[\]\s<>#%"`]+\.[^|{}\\^~[\]\s<>#%"`]+)\]/g, '<$1>')
 
     // Named Links
     .replace(/\[([^[\]|]+?)\|([^[\]|]+?)\]/g, '<$2|$1>')
