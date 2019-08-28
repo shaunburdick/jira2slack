@@ -46,7 +46,7 @@ function toSlack (jiraMD) {
     .replace(/_(\s*)(\S.*?\S)(\s*)_/g, '$1_$2_$3')
 
     // Monospaced text
-    .replace(/\{\{([^}]+)\}\}/g, '`$1`')
+    .replace(/\{\{(.+?)\}\}/g, '`$1`')
 
     // Citations
     .replace(/\?\?([^??]+)\?\?/g, '_-- $1_')
