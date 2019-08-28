@@ -75,8 +75,8 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
   );
 
   assert.equal(
-    J2S.toSlack('Monospace: {{$code}}\n'),
-    'Monospace: `$code`\n',
+    J2S.toSlack('Monospace: {{$code with nested {singleCurlyBrace} }}\n'),
+    'Monospace: `$code with nested {singleCurlyBrace} `\n',
     'Monospace'
   );
 
@@ -204,7 +204,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'Bold (spaced): * boldy is spaced *\n' +
     'Italic: _italicy_\n' +
     'Italic (spaced): _italicy is poorly spaced _\n' +
-    'Monospace: {{$code}}\n' +
+    'Monospace: {{$code with nested {singleCurlyBrace} }}\n' +
     'Citations: ??citation??\n' +
     'Subscript: ~subscript~\n' +
     'Superscript: ^superscript^\n' +
@@ -238,7 +238,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'Bold (spaced):  *boldy is spaced* \n' +
     'Italic: _italicy_\n' +
     'Italic (spaced): _italicy is poorly spaced_ \n' +
-    'Monospace: `$code`\n' +
+    'Monospace: `$code with nested {singleCurlyBrace} `\n' +
     'Citations: _-- citation_\n' +
     'Subscript: _subscript\n' +
     'Superscript: ^superscript\n' +
