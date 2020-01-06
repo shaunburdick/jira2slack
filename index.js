@@ -76,7 +76,7 @@ function toSlack (jiraMD) {
     .replace(/^bq\.\s+/gm, '> ')
 
     // Remove color: unsupported in md
-    .replace(/\{color:[^}]+\}([^]*)\{color\}/gm, '$1')
+    .replace(/\{color:[^}]+\}([^]*?)\{color\}/gm, '$1')
 
     // panel into table
     .replace(/\{panel:title=([^}]*)\}\n?([^]*?)\n?\{panel\}/gm, '\n| $1 |\n| --- |\n| $2 |')
