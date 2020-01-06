@@ -219,6 +219,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'Multiple Links: [Someurl1|http://someurl1.com] links to [Someurl2|http://someurl2.com]\n' +
     'Blockquote: \nbq. This is quoted\n' +
     'Color: {color:white}This is white text{color}\n' +
+    'Multiple Colors: {color:white}This is white text{color} {color:black}This is black text{color}\n' +
     'Panel: {panel:title=foo}Panel Contents{panel}\n';
 
   const expectedText = '\n *Heading*\n\nFoo foo _foo_ foo foo foo\n' +
@@ -253,6 +254,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'Multiple Links: <http://someurl1.com|Someurl1> links to <http://someurl2.com|Someurl2>\n' +
     'Blockquote: \n> This is quoted\n' +
     'Color: This is white text\n' +
+    'Multiple Colors: This is white text This is black text\n' +
     'Panel: \n| foo |\n| --- |\n| Panel Contents |\n';
 
   const response = J2S.toSlack(jiraFormat);
