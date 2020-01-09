@@ -178,6 +178,12 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
   );
 
   assert.equal(
+    J2S.toSlack('Multiple Colors: {color:white}This is white text{color}\n{color:black}This is black text{color} {color: gray}This is gray\ntext{color}'),
+    'Multiple Colors: This is white text\nThis is black text This is gray\ntext',
+    'Multiple Colors'
+  );
+
+  assert.equal(
     J2S.toSlack('Panel: {panel:title=foo}Panel Contents{panel}\n'),
     'Panel: \n| foo |\n| --- |\n| Panel Contents |\n',
     'Panel'
