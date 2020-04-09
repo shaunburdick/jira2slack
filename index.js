@@ -72,6 +72,9 @@ function toSlack (jiraMD) {
     // Named Links
     .replace(/\[([^[\]|]+?)\|([^[\]|]+?)\]/g, '<$2|$1>')
 
+    // Smart Links
+    .replace(/\[([^[\]|]+?)\|([^[\]|]+?)\|(smart-link)\]/g, '<$1>')
+
     // Single Paragraph Blockquote
     .replace(/^bq\.\s+/gm, '> ')
 

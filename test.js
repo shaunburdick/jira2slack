@@ -154,6 +154,12 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
   );
 
   assert.equal(
+    J2S.toSlack('Smart Link: [http://someurl.com|http://someurl.com|smart-link]\n'),
+    'Smart Link: <http://someurl.com>\n',
+    'Smart Link'
+  );
+
+  assert.equal(
     J2S.toSlack('Multiple Links: [Someurl1|http://someurl1.com] links to [Someurl2|http://someurl2.com]\n'),
     'Multiple Links: <http://someurl1.com|Someurl1> links to <http://someurl2.com|Someurl2>\n',
     'Multiple Links'
@@ -222,6 +228,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'No Format: {noformat}pre text{noformat}\n' +
     'Unnamed Link: [http://someurl.com]\n' +
     'Named Link: [Someurl|http://someurl.com]\n' +
+    'Smart Link: [http://someurl.com|http://someurl.com|smart-link]\n' +
     'Multiple Links: [Someurl1|http://someurl1.com] links to [Someurl2|http://someurl2.com]\n' +
     'Blockquote: \nbq. This is quoted\n' +
     'Color: {color:white}This is white text{color}\n' +
@@ -257,6 +264,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'No Format: ```pre text```\n' +
     'Unnamed Link: <http://someurl.com>\n' +
     'Named Link: <http://someurl.com|Someurl>\n' +
+    'Smart Link: <http://someurl.com>\n' +
     'Multiple Links: <http://someurl1.com|Someurl1> links to <http://someurl2.com|Someurl2>\n' +
     'Blockquote: \n> This is quoted\n' +
     'Color: This is white text\n' +
