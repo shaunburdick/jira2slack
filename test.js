@@ -130,6 +130,12 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
   );
 
   assert.equal(
+    J2S.toSlack('Not strikethrough: {code}-this should not strike-{code}\n'),
+    'Not strikethrough: ```-this should not strike-```\n',
+    'No strikethrough for words inside code blocks'
+  );
+
+  assert.equal(
     J2S.toSlack('Quote: {quote}quoted text{quote}\n'),
     'Quote: ```quoted text```\n',
     'Quote'

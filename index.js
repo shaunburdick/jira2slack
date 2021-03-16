@@ -64,8 +64,8 @@ function toSlack (jiraMD) {
     .replace(/{noformat}/g, '```')
 
     // Strikethrough
-    .replace(/`{3}([\S\s]*?)`{3}|-([\S\s]*?)-/gm, (match, a, b)=> {
-      return b ? `~${b}~` : a ? '```'+a+'```' : match
+    .replace(/`{3}([\S\s]*?)`{3}|((\W)-|(^)-)( *)(\S.*?\S)( *)(-(\W)|-($))/gm, (match, a, b, c, d, e, f, g, h, i) => {
+      return i ? `${c}${e}~${f}~${i}` : f ? `${c}${e}~${f}~` : e ? `~${e}~` : a ? '```' + a + '```' : match;
     })
 
     // Un-named Links
