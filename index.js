@@ -57,6 +57,12 @@ function toSlack (jiraMD) {
     // Subscript
     .replace(/~([^~]*)~/g, '_$1')
 
+    // Pre-formatted text
+    .replace(/{noformat}/g, '```')
+
+    // Un-named Links
+    .replace(/\[([^|{}\\^~[\]\s"`]+\.[^|{}\\^~[\]\s"`]+)\]/g, '<$1>')
+
     // Smart Links
     .replace(/\[([^[\]|]+?)\|([^[\]|]+?)\|(smart-link)\]/g, '<$1>')
 
@@ -65,12 +71,6 @@ function toSlack (jiraMD) {
 
     // Code Block
     .replace(/\{code(:([a-z]+))?\}([^]*)\{code\}/gm, '```$2$3```')
-
-    // Pre-formatted text
-    .replace(/{noformat}/g, '```')
-
-    // Un-named Links
-    .replace(/\[([^|{}\\^~[\]\s"`]+\.[^|{}\\^~[\]\s"`]+)\]/g, '<$1>')
 
     // Named Links
     .replace(/\[([^[\]|]+?)\|([^[\]|]+?)\]/g, '<$2|$1>')
