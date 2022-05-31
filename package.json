@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && npm run unit",
-    "unit": "nyc --all node test.js | tap-diff",
+    "unit": "nyc --all node test.js",
     "lint": "semistandard --verbose | snazzy",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coverage-report": "nyc report --reporter=html && open coverage/index.html"
@@ -27,12 +27,11 @@
   "homepage": "https://github.com/shaunburdick/jira2slack#readme",
   "devDependencies": {
     "coveralls": "^3.0.11",
-    "eslint-config-standard": "^13.0.1",
-    "nyc": "^14.1.1",
-    "semistandard": "^14.2.0",
-    "snazzy": "^8.0.0",
-    "tap-diff": "^0.1.1",
-    "tape": "^4.13.0"
+    "eslint-config-standard": "^17.0.0",
+    "nyc": "^15.1.0",
+    "semistandard": "^16.0.1",
+    "snazzy": "^9.0.0",
+    "tape": "^5.5.3"
   },
   "semistandard": {
     "ignore": [

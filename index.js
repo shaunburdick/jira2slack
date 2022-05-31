@@ -60,6 +60,9 @@ function toSlack (jiraMD) {
     // Pre-formatted text
     .replace(/{noformat}/g, '```')
 
+    // Named Links
+    .replace(/\[([^[\]|]+?)\|([^[\]|]+?)\]/g, '<$2|$1>')
+
     // Un-named Links
     .replace(/\[([^|{}\\^~[\]\s"`]+\.[^|{}\\^~[\]\s"`]+)\]/g, '<$1>')
 
@@ -71,9 +74,6 @@ function toSlack (jiraMD) {
 
     // Code Block
     .replace(/\{code(:([a-z]+))?\}([^]*)\{code\}/gm, '```$2$3```')
-
-    // Named Links
-    .replace(/\[([^[\]|]+?)\|([^[\]|]+?)\]/g, '<$2|$1>')
 
     // Single Paragraph Blockquote
     .replace(/^bq\.\s+/gm, '> ')
