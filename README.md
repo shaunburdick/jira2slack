@@ -1,6 +1,6 @@
 # JIRA 2 Slack
 
-[![npm version](https://badge.fury.io/js/jira2slack.svg)](https://badge.fury.io/js/jira2slack) [![Build Status](https://travis-ci.org/shaunburdick/jira2slack.svg?branch=master)](https://travis-ci.org/shaunburdick/jira2slack) [![Coverage Status](https://coveralls.io/repos/github/shaunburdick/jira2slack/badge.svg?branch=master)](https://coveralls.io/github/shaunburdick/jira2slack?branch=master)  [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg)](https://github.com/Flet/semistandard)
+[![npm version](https://badge.fury.io/js/jira2slack.svg)](https://badge.fury.io/js/jira2slack) [![Build Status](https://github.com/shaunburdick/jira2slack/actions/workflows/test.yml/badge.svg)](https://github.com/shaunburdick/jira2slack/actions/workflows/test.yml) [![Coverage Status](https://coveralls.io/repos/github/shaunburdick/jira2slack/badge.svg?branch=master)](https://coveralls.io/github/shaunburdick/jira2slack?branch=master)  [![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg)](https://github.com/Flet/semistandard)
 
 Library to convert between JIRA markup and Slack markup
 
