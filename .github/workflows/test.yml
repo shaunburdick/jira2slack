@@ -32,12 +32,9 @@ jobs:
 
     - run: npm test
 
-  finish:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - name: Coveralls Finished
+    - run: npm run coverage
+
+    - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
-        github-token: ${{ secrets.github_token }}
-        parallel-finished: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
