@@ -195,6 +195,12 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
     'Panel'
   );
 
+  assert.equal(
+    J2S.toSlack('GitLab Smart Link: [https://gitlab.com/software/ourproject/-/merge_requests/555|https://gitlab.com/software/ourproject/-/merge_requests/555|smart-link]\n'),
+    'GitLab Smart Link: <https://gitlab.com/software/ourproject/-/merge_requests/555>\n',
+    'GitLab Smart Link'
+  );
+
   assert.end();
 });
 
@@ -229,6 +235,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'Unnamed Link: [http://someurl.com]\n' +
     'Named Link: [Someurl|http://someurl.com]\n' +
     'Smart Link: [http://someurl.com|http://someurl.com|smart-link]\n' +
+    'GitLab Smart Link: [https://gitlab.com/software/ourproject/-/merge_requests/555|https://gitlab.com/software/ourproject/-/merge_requests/555|smart-link]\n' +
     'Multiple Links: [Someurl1|http://someurl1.com] links to [Someurl2|http://someurl2.com]\n' +
     'Blockquote: \nbq. This is quoted\n' +
     'Color: {color:white}This is white text{color}\n' +
@@ -265,6 +272,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'Unnamed Link: <http://someurl.com>\n' +
     'Named Link: <http://someurl.com|Someurl>\n' +
     'Smart Link: <http://someurl.com>\n' +
+    'GitLab Smart Link: <https://gitlab.com/software/ourproject/-/merge_requests/555>\n' +
     'Multiple Links: <http://someurl1.com|Someurl1> links to <http://someurl2.com|Someurl2>\n' +
     'Blockquote: \n> This is quoted\n' +
     'Color: This is white text\n' +
