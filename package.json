@@ -7,7 +7,8 @@
   "scripts": {
     "test": "npm run lint && npm run unit",
     "unit": "nyc --all node test.js",
-    "lint": "semistandard --verbose | snazzy",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
     "coverage": "nyc report --reporter=lcovonly",
     "coverage-report": "nyc report --reporter=html && open coverage/index.html"
   },
@@ -27,10 +28,10 @@
   },
   "homepage": "https://github.com/shaunburdick/jira2slack#readme",
   "devDependencies": {
-    "eslint-config-standard": "^17.0.0",
+    "eslint": "^9.17.0",
+    "eslint-config-shaunburdick": "^2.0.1",
+    "globals": "^15.14.0",
     "nyc": "^15.1.0",
-    "semistandard": "^16.0.1",
-    "snazzy": "^9.0.0",
     "tape": "^5.5.3"
   },
   "semistandard": {

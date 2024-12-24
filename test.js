@@ -4,27 +4,27 @@ const test = require('tape');
 const J2S = require('./index.js');
 
 test('JIRA to Slack: Check Individual Formatting', (assert) => {
-  assert.equal(
-    J2S.toSlack('h1. Heading'),
-    '\n *Heading*\n',
-    'Headings'
-  );
+    assert.equal(
+        J2S.toSlack('h1. Heading'),
+        '\n *Heading*\n',
+        'Headings'
+    );
 
-  assert.equal(
-    J2S.toSlack('* Bulleted List\n** Indented more\n* Indented less\n\n'),
-    '• Bulleted List\n  • Indented more\n• Indented less\n\n',
-    'Unordered List'
-  );
+    assert.equal(
+        J2S.toSlack('* Bulleted List\n** Indented more\n* Indented less\n\n'),
+        '• Bulleted List\n  • Indented more\n• Indented less\n\n',
+        'Unordered List'
+    );
 
-  assert.equal(
-    J2S.toSlack('- Bulleted Dash List\n- Bulleted Dash List\n- Bulleted Dash List\n\n'),
-    '• Bulleted Dash List\n• Bulleted Dash List\n• Bulleted Dash List\n\n',
-    'Unordered Dash List'
-  );
+    assert.equal(
+        J2S.toSlack('- Bulleted Dash List\n- Bulleted Dash List\n- Bulleted Dash List\n\n'),
+        '• Bulleted Dash List\n• Bulleted Dash List\n• Bulleted Dash List\n\n',
+        'Unordered Dash List'
+    );
 
-  assert.equal(
-    J2S.toSlack(
-      '# Numbered List\n' +
+    assert.equal(
+        J2S.toSlack(
+            '# Numbered List\n' +
       '## Indented more\n' +
       '## Indented more\n' +
       '### Indented morer\n' +
@@ -32,8 +32,8 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
       '### Indented morer\n' +
       '## Indented more\n' +
       '# Indented less\n\n'
-    ),
-    '1. Numbered List\n' +
+        ),
+        '1. Numbered List\n' +
     '  1. Indented more\n' +
     '  2. Indented more\n' +
     '    1. Indented morer\n' +
@@ -41,171 +41,172 @@ test('JIRA to Slack: Check Individual Formatting', (assert) => {
     '    3. Indented morer\n' +
     '  3. Indented more\n' +
     '2. Indented less\n\n',
-    'Ordered List'
-  );
+        'Ordered List'
+    );
 
-  assert.equal(
-    J2S.toSlack('||heading 1||heading 2||\n|col A1|col B1|\n|col A2|col B2|\n\n'),
-    '\n|heading 1|heading 2|\n| --- | --- |\n|col A1|col B1|\n|col A2|col B2|\n\n',
-    'Table'
-  );
+    assert.equal(
+        J2S.toSlack('||heading 1||heading 2||\n|col A1|col B1|\n|col A2|col B2|\n\n'),
+        '\n|heading 1|heading 2|\n| --- | --- |\n|col A1|col B1|\n|col A2|col B2|\n\n',
+        'Table'
+    );
 
-  assert.equal(
-    J2S.toSlack('Bold: *boldy*\n'),
-    'Bold: *boldy*\n',
-    'Bold'
-  );
+    assert.equal(
+        J2S.toSlack('Bold: *boldy*\n'),
+        'Bold: *boldy*\n',
+        'Bold'
+    );
 
-  assert.equal(
-    J2S.toSlack('Bold (spaced): * boldy is spaced *\n'),
-    'Bold (spaced):  *boldy is spaced* \n',
-    'Bold (spaced)'
-  );
+    assert.equal(
+        J2S.toSlack('Bold (spaced): * boldy is spaced *\n'),
+        'Bold (spaced):  *boldy is spaced* \n',
+        'Bold (spaced)'
+    );
 
-  assert.equal(
-    J2S.toSlack('Italic: _italicy_\n'),
-    'Italic: _italicy_\n',
-    'Italic'
-  );
+    assert.equal(
+        J2S.toSlack('Italic: _italicy_\n'),
+        'Italic: _italicy_\n',
+        'Italic'
+    );
 
-  assert.equal(
-    J2S.toSlack('Italic (spaced): _italicy is poorly spaced _\n'),
-    'Italic (spaced): _italicy is poorly spaced_ \n',
-    'Italic (spaced)'
-  );
+    assert.equal(
+        J2S.toSlack('Italic (spaced): _italicy is poorly spaced _\n'),
+        'Italic (spaced): _italicy is poorly spaced_ \n',
+        'Italic (spaced)'
+    );
 
-  assert.equal(
-    J2S.toSlack('Monospace: {{$code with nested {singleCurlyBrace} }}\n'),
-    'Monospace: `$code with nested {singleCurlyBrace} `\n',
-    'Monospace'
-  );
+    assert.equal(
+        J2S.toSlack('Monospace: {{$code with nested {singleCurlyBrace} }}\n'),
+        'Monospace: `$code with nested {singleCurlyBrace} `\n',
+        'Monospace'
+    );
 
-  assert.equal(
-    J2S.toSlack('Citations: ??citation??\n'),
-    'Citations: _-- citation_\n',
-    'Citations'
-  );
+    assert.equal(
+        J2S.toSlack('Citations: ??citation??\n'),
+        'Citations: _-- citation_\n',
+        'Citations'
+    );
 
-  const bigCitation = 'wwwwwwwwwwwwwww\n'.repeat(100);
-  assert.equal(
-    J2S.toSlack(`Citations: ??${bigCitation}??\n`),
-    `Citations: _-- ${bigCitation}_\n`,
-    'Huge Citations'
-  );
+    const bigCitation = 'wwwwwwwwwwwwwww\n'.repeat(100);
+    assert.equal(
+        J2S.toSlack(`Citations: ??${bigCitation}??\n`),
+        `Citations: _-- ${bigCitation}_\n`,
+        'Huge Citations'
+    );
 
-  assert.equal(
-    J2S.toSlack('Subscript: ~subscript~\n'),
-    'Subscript: _subscript\n',
-    'Subscript'
-  );
+    assert.equal(
+        J2S.toSlack('Subscript: ~subscript~\n'),
+        'Subscript: _subscript\n',
+        'Subscript'
+    );
 
-  assert.equal(
-    J2S.toSlack('Superscript: ^superscript^\n'),
-    'Superscript: ^superscript\n',
-    'Superscript'
-  );
+    assert.equal(
+        J2S.toSlack('Superscript: ^superscript^\n'),
+        'Superscript: ^superscript\n',
+        'Superscript'
+    );
 
-  assert.equal(
-    J2S.toSlack('Strikethrough: -strikethrough-\n'),
-    'Strikethrough: ~strikethrough~\n',
-    'Strikethrough'
-  );
+    assert.equal(
+        J2S.toSlack('Strikethrough: -strikethrough-\n'),
+        'Strikethrough: ~strikethrough~\n',
+        'Strikethrough'
+    );
 
-  assert.equal(
-    J2S.toSlack('Not Strikethrough: i-use-dashes\n'),
-    'Not Strikethrough: i-use-dashes\n',
-    'No strikethrough for dashed words'
-  );
+    assert.equal(
+        J2S.toSlack('Not Strikethrough: i-use-dashes\n'),
+        'Not Strikethrough: i-use-dashes\n',
+        'No strikethrough for dashed words'
+    );
 
-  assert.equal(
-    J2S.toSlack('Strikethrough (spaced): - strikethrough is poorly spaced-\n'),
-    'Strikethrough (spaced):  ~strikethrough is poorly spaced~\n',
-    'Strikethrough (spaced)'
-  );
+    assert.equal(
+        J2S.toSlack('Strikethrough (spaced): - strikethrough is poorly spaced-\n'),
+        'Strikethrough (spaced):  ~strikethrough is poorly spaced~\n',
+        'Strikethrough (spaced)'
+    );
 
-  assert.equal(
-    J2S.toSlack('Code: {code}some code{code}\n'),
-    'Code: ```some code```\n',
-    'Code'
-  );
+    assert.equal(
+        J2S.toSlack('Code: {code}some code{code}\n'),
+        'Code: ```some code```\n',
+        'Code'
+    );
 
-  assert.equal(
-    J2S.toSlack('Quote: {quote}quoted text{quote}\n'),
-    'Quote: ```quoted text```\n',
-    'Quote'
-  );
+    assert.equal(
+        J2S.toSlack('Quote: {quote}quoted text{quote}\n'),
+        'Quote: ```quoted text```\n',
+        'Quote'
+    );
 
-  assert.equal(
-    J2S.toSlack('No Format: {noformat}pre text{noformat}\n'),
-    'No Format: ```pre text```\n',
-    'Pre-formatted Text'
-  );
+    assert.equal(
+        J2S.toSlack('No Format: {noformat}pre text{noformat}\n'),
+        'No Format: ```pre text```\n',
+        'Pre-formatted Text'
+    );
 
-  assert.equal(
-    J2S.toSlack('Unnamed Link: [http://someurl.com]\n'),
-    'Unnamed Link: <http://someurl.com>\n',
-    'Unnamed Link'
-  );
+    assert.equal(
+        J2S.toSlack('Unnamed Link: [http://someurl.com]\n'),
+        'Unnamed Link: <http://someurl.com>\n',
+        'Unnamed Link'
+    );
 
-  assert.equal(
-    J2S.toSlack('Named Link: [Someurl|http://someurl.com]\n'),
-    'Named Link: <http://someurl.com|Someurl>\n',
-    'Named Link'
-  );
+    assert.equal(
+        J2S.toSlack('Named Link: [Someurl|http://someurl.com]\n'),
+        'Named Link: <http://someurl.com|Someurl>\n',
+        'Named Link'
+    );
 
-  assert.equal(
-    J2S.toSlack('Smart Link: [http://someurl.com|http://someurl.com|smart-link]\n'),
-    'Smart Link: <http://someurl.com>\n',
-    'Smart Link'
-  );
+    assert.equal(
+        J2S.toSlack('Smart Link: [http://someurl.com|http://someurl.com|smart-link]\n'),
+        'Smart Link: <http://someurl.com>\n',
+        'Smart Link'
+    );
 
-  assert.equal(
-    J2S.toSlack('Multiple Links: [Someurl1|http://someurl1.com] links to [Someurl2|http://someurl2.com]\n'),
-    'Multiple Links: <http://someurl1.com|Someurl1> links to <http://someurl2.com|Someurl2>\n',
-    'Multiple Links'
-  );
+    assert.equal(
+        J2S.toSlack('Multiple Links: [Someurl1|http://someurl1.com] links to [Someurl2|http://someurl2.com]\n'),
+        'Multiple Links: <http://someurl1.com|Someurl1> links to <http://someurl2.com|Someurl2>\n',
+        'Multiple Links'
+    );
 
-  assert.equal(
-    J2S.toSlack('[] checkbox 1\n[] checkbox 2\n[this is just a comment]\nvar foo = ["1","2","3"]; var=[1,2,3]'),
-    '[] checkbox 1\n[] checkbox 2\n[this is just a comment]\nvar foo = ["1","2","3"]; var=[1,2,3]',
-    'Non-URL links'
-  );
+    assert.equal(
+        J2S.toSlack('[] checkbox 1\n[] checkbox 2\n[this is just a comment]\nvar foo = ["1","2","3"]; var=[1,2,3]'),
+        '[] checkbox 1\n[] checkbox 2\n[this is just a comment]\nvar foo = ["1","2","3"]; var=[1,2,3]',
+        'Non-URL links'
+    );
 
-  assert.equal(
-    J2S.toSlack('Blockquote: \nbq. This is quoted\n'),
-    'Blockquote: \n> This is quoted\n',
-    'Blockquote'
-  );
+    assert.equal(
+        J2S.toSlack('Blockquote: \nbq. This is quoted\n'),
+        'Blockquote: \n> This is quoted\n',
+        'Blockquote'
+    );
 
-  assert.equal(
-    J2S.toSlack('Color: {color:white}This is white text{color}\n'),
-    'Color: This is white text\n',
-    'Color'
-  );
+    assert.equal(
+        J2S.toSlack('Color: {color:white}This is white text{color}\n'),
+        'Color: This is white text\n',
+        'Color'
+    );
 
-  assert.equal(
-    J2S.toSlack('Multiple Colors: {color:white}This is white text{color}\n{color:black}This is black text{color} {color: gray}This is gray\ntext{color}'),
-    'Multiple Colors: This is white text\nThis is black text This is gray\ntext',
-    'Multiple Colors'
-  );
+    assert.equal(
+        // eslint-disable-next-line @stylistic/max-len
+        J2S.toSlack('Multiple Colors: {color:white}This is white text{color}\n{color:black}This is black text{color} {color: gray}This is gray\ntext{color}'),
+        'Multiple Colors: This is white text\nThis is black text This is gray\ntext',
+        'Multiple Colors'
+    );
 
-  assert.equal(
-    J2S.toSlack('Panel: {panel:title=foo}Panel Contents{panel}\n'),
-    'Panel: \n| foo |\n| --- |\n| Panel Contents |\n',
-    'Panel'
-  );
+    assert.equal(
+        J2S.toSlack('Panel: {panel:title=foo}Panel Contents{panel}\n'),
+        'Panel: \n| foo |\n| --- |\n| Panel Contents |\n',
+        'Panel'
+    );
 
-  assert.equal(
-    J2S.toSlack('GitLab Smart Link: [https://gitlab.com/software/ourproject/-/merge_requests/555|https://gitlab.com/software/ourproject/-/merge_requests/555|smart-link]\n'),
-    'GitLab Smart Link: <https://gitlab.com/software/ourproject/-/merge_requests/555>\n',
-    'GitLab Smart Link'
-  );
+    assert.equal(
+        J2S.toSlack('GitLab Smart Link: [https://gitlab.com/software/ourproject/-/merge_requests/555|https://gitlab.com/software/ourproject/-/merge_requests/555|smart-link]\n'),
+        'GitLab Smart Link: <https://gitlab.com/software/ourproject/-/merge_requests/555>\n',
+        'GitLab Smart Link'
+    );
 
-  assert.end();
+    assert.end();
 });
 
 test('JIRA to Slack: Check All Formatting', (assert) => {
-  const jiraFormat = 'h1. Heading\nFoo foo _foo_ foo foo foo\n' +
+    const jiraFormat = 'h1. Heading\nFoo foo _foo_ foo foo foo\n' +
     '* Bulleted List\n** Indented more\n* Indented less\n\n' +
     '- Bulleted Dash List\n- Bulleted Dash List\n- Bulleted Dash List\n\n' +
     '# Numbered List\n' +
@@ -242,7 +243,7 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'Multiple Colors: {color:white}This is white text{color} {color:black}This is black text{color}\n' +
     'Panel: {panel:title=foo}Panel Contents{panel}\n';
 
-  const expectedText = '\n *Heading*\n\nFoo foo _foo_ foo foo foo\n' +
+    const expectedText = '\n *Heading*\n\nFoo foo _foo_ foo foo foo\n' +
     '• Bulleted List\n  • Indented more\n• Indented less\n\n' +
     '• Bulleted Dash List\n• Bulleted Dash List\n• Bulleted Dash List\n\n' +
     '1. Numbered List\n' +
@@ -279,28 +280,28 @@ test('JIRA to Slack: Check All Formatting', (assert) => {
     'Multiple Colors: This is white text This is black text\n' +
     'Panel: \n| foo |\n| --- |\n| Panel Contents |\n';
 
-  const response = J2S.toSlack(jiraFormat);
+    const response = J2S.toSlack(jiraFormat);
 
-  assert.equal(response, expectedText, 'JIRA Markup should be converted to Slack Markup');
-  assert.end();
+    assert.equal(response, expectedText, 'JIRA Markup should be converted to Slack Markup');
+    assert.end();
 });
 
 test('Slack to JIRA: Check Individual Formatting', (assert) => {
-  assert.equal(
-    J2S.toJira('\n *Heading*\n'),
-    'h1. Heading',
-    'Headings'
-  );
+    assert.equal(
+        J2S.toJira('\n *Heading*\n'),
+        'h1. Heading',
+        'Headings'
+    );
 
-  assert.equal(
-    J2S.toJira('• Bulleted List\n  • Indented more\n• Indented less\n\n'),
-    '* Bulleted List\n** Indented more\n* Indented less\n\n',
-    'Unordered List'
-  );
+    assert.equal(
+        J2S.toJira('• Bulleted List\n  • Indented more\n• Indented less\n\n'),
+        '* Bulleted List\n** Indented more\n* Indented less\n\n',
+        'Unordered List'
+    );
 
-  assert.equal(
-    J2S.toJira(
-      '1. Numbered List\n' +
+    assert.equal(
+        J2S.toJira(
+            '1. Numbered List\n' +
       '  1. Indented more\n' +
       '  2. Indented more\n' +
       '    1. Indented morer\n' +
@@ -308,8 +309,8 @@ test('Slack to JIRA: Check Individual Formatting', (assert) => {
       '    3. Indented morer\n' +
       '  3. Indented more\n' +
       '2. Indented less\n\n'
-    ),
-    '# Numbered List\n' +
+        ),
+        '# Numbered List\n' +
     '## Indented more\n' +
     '## Indented more\n' +
     '### Indented morer\n' +
@@ -317,74 +318,74 @@ test('Slack to JIRA: Check Individual Formatting', (assert) => {
     '### Indented morer\n' +
     '## Indented more\n' +
     '# Indented less\n\n',
-    'Ordered List'
-  );
+        'Ordered List'
+    );
 
-  assert.equal(
-    J2S.toJira('||heading 1||heading 2||\n|col A1|col B1|\n|col A2|col B2|\n\n'),
-    '\n|heading 1|heading 2|\n| --- | --- |\n|col A1|col B1|\n|col A2|col B2|\n\n',
-    'Table'
-  );
+    assert.equal(
+        J2S.toJira('||heading 1||heading 2||\n|col A1|col B1|\n|col A2|col B2|\n\n'),
+        '\n|heading 1|heading 2|\n| --- | --- |\n|col A1|col B1|\n|col A2|col B2|\n\n',
+        'Table'
+    );
 
-  assert.equal(
-    J2S.toJira('Bold: *boldy*\n'),
-    'Bold: *boldy*\n',
-    'Bold'
-  );
+    assert.equal(
+        J2S.toJira('Bold: *boldy*\n'),
+        'Bold: *boldy*\n',
+        'Bold'
+    );
 
-  assert.equal(
-    J2S.toJira('Italic: _italicy_\n'),
-    'Italic: _italicy_\n',
-    'Italic'
-  );
+    assert.equal(
+        J2S.toJira('Italic: _italicy_\n'),
+        'Italic: _italicy_\n',
+        'Italic'
+    );
 
-  assert.equal(
-    J2S.toJira('Monospace: `$code`\n'),
-    'Monospace: {{$code}}\n',
-    'Monospace'
-  );
+    assert.equal(
+        J2S.toJira('Monospace: `$code`\n'),
+        'Monospace: {{$code}}\n',
+        'Monospace'
+    );
 
-  assert.equal(
-    J2S.toJira('Citations: _-- citation_\n'),
-    'Citations: ??citation??\n',
-    'Citations'
-  );
+    assert.equal(
+        J2S.toJira('Citations: _-- citation_\n'),
+        'Citations: ??citation??\n',
+        'Citations'
+    );
 
-  assert.equal(
-    J2S.toJira('Strikethrough: ~strikethrough~\n'),
-    'Strikethrough: -strikethrough-\n',
-    'Strikethrough'
-  );
+    assert.equal(
+        J2S.toJira('Strikethrough: ~strikethrough~\n'),
+        'Strikethrough: -strikethrough-\n',
+        'Strikethrough'
+    );
 
-  assert.equal(
-    J2S.toJira('Not Strikethrough: i-use-dashes\n'),
-    'Not Strikethrough: i-use-dashes\n',
-    'No strikethrough for dashed words'
-  );
+    assert.equal(
+        J2S.toJira('Not Strikethrough: i-use-dashes\n'),
+        'Not Strikethrough: i-use-dashes\n',
+        'No strikethrough for dashed words'
+    );
 
-  assert.equal(
-    J2S.toJira('Unnamed Link: <http://someurl.com>\n'),
-    'Unnamed Link: [http://someurl.com]\n',
-    'Unnamed Link'
-  );
+    assert.equal(
+        J2S.toJira('Unnamed Link: <http://someurl.com>\n'),
+        'Unnamed Link: [http://someurl.com]\n',
+        'Unnamed Link'
+    );
 
-  assert.equal(
-    J2S.toJira('Named Link: <http://someurl.com|Someurl>\n'),
-    'Named Link: [Someurl|http://someurl.com]\n',
-    'Named Link'
-  );
+    assert.equal(
+        J2S.toJira('Named Link: <http://someurl.com|Someurl>\n'),
+        'Named Link: [Someurl|http://someurl.com]\n',
+        'Named Link'
+    );
 
-  assert.equal(
-    J2S.toJira('Blockquote: \n> This is quoted\n'),
-    'Blockquote: \nbq. This is quoted\n',
-    'Blockquote'
-  );
+    assert.equal(
+        J2S.toJira('Blockquote: \n> This is quoted\n'),
+        'Blockquote: \nbq. This is quoted\n',
+        'Blockquote'
+    );
 
-  assert.end();
+    assert.end();
 });
 
 test('Slack to JIRA: Check All Formatting', (assert) => {
-  const expectedText = 'h1. Heading\nFoo foo _foo_ foo foo foo\n' +
+    const expectedText = 'h1. Heading\nFoo foo _foo_ foo foo foo\n' +
     '* Bulleted List\n** Indented more\n* Indented less\n\n' +
     '# Numbered List\n' +
     '## Indented more\n' +
@@ -405,7 +406,7 @@ test('Slack to JIRA: Check All Formatting', (assert) => {
     'Named Link: [Someurl|http://someurl.com]\n' +
     'Blockquote: \nbq. This is quoted\n';
 
-  const stashFormat = '\n *Heading*\n\nFoo foo _foo_ foo foo foo\n' +
+    const stashFormat = '\n *Heading*\n\nFoo foo _foo_ foo foo foo\n' +
     '• Bulleted List\n  • Indented more\n• Indented less\n\n' +
     '1. Numbered List\n' +
     '  1. Indented more\n' +
@@ -426,8 +427,8 @@ test('Slack to JIRA: Check All Formatting', (assert) => {
     'Named Link: <http://someurl.com|Someurl>\n' +
     'Blockquote: \n> This is quoted\n';
 
-  const response = J2S.toJira(stashFormat);
+    const response = J2S.toJira(stashFormat);
 
-  assert.equal(response, expectedText, 'JIRA Markup should be converted to Slack Markup');
-  assert.end();
+    assert.equal(response, expectedText, 'JIRA Markup should be converted to Slack Markup');
+    assert.end();
 });
